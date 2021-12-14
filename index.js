@@ -1,6 +1,5 @@
 const express = require("express");
 const hbs = require("hbs");
-
 const app = express();
 app.set("views", __dirname + "/views/partials");
 app.set("view engine", "hbs");
