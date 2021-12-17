@@ -30,25 +30,21 @@
     </table>
    
     <script>
-    // Получение всех пользователей
         async function GetUsers() {
             // отправляет запрос и получаем ответ
             const response = await fetch("/api/users", {
                 method: "GET",
                 headers: { "Accept": "application/json" }
             });
-            // если запрос прошел нормально
             if (response.ok === true) {
-                // получаем данные
                 const users = await response.json();
                 let rows = document.querySelector("tbody"); 
                 users.forEach(user => {
-                    // добавляем полученные элементы в таблицу
                     rows.append(row(user));
                 });
             }
         }
-        // Получение одного пользователя
+     
         async function GetUser(id) {
             const response = await fetch("/api/users/" + id, {
                 method: "GET",
@@ -62,7 +58,6 @@
                 form.elements["age"].value = user.age;
             }
         }
-        // Добавление пользователя
         async function CreateUser(userName, userAge) {
   
             const response = await fetch("api/users", {
@@ -79,7 +74,6 @@
                 document.querySelector("tbody").append(row(user));
             }
         }
-        // Изменение пользователя
         async function EditUser(userId, userName, userAge) {
             const response = await fetch("api/users", {
                 method: "PUT",
@@ -96,7 +90,6 @@
                 document.querySelector("tr[data-rowid='" + user.id + "']").replaceWith(row(user));
             }
         }
-        // Удаление пользователя
         async function DeleteUser(id) {
             const response = await fetch("/api/users/" + id, {
                 method: "DELETE",
@@ -107,16 +100,12 @@
                 document.querySelector("tr[data-rowid='" + user.id + "']").remove();
             }
         }
-  
-        // сброс формы
         function reset() {
             const form = document.forms["userForm"];
             form.reset();
             form.elements["id"].value = 0;
         }
-        // создание строки для таблицы
         function row(user) {
-  
             const tr = document.createElement("tr");
             tr.setAttribute("data-rowid", user.id);
   
@@ -160,14 +149,11 @@
   
             return tr;
         }
-        // сброс значений формы
         document.getElementById("reset").click(function (e) {
   
             e.preventDefault();
             reset();
         })
-  
-        // отправка формы
         document.forms["userForm"].addEventListener("submit", e => {
             e.preventDefault();
             const form = document.forms["userForm"];
@@ -179,8 +165,6 @@
             else
                 EditUser(id, name, age);
         });
-  
-        // загрузка пользователей
         GetUsers();
     </script>
 </body>
